@@ -9,8 +9,11 @@
     "files": [
         "main.blocks",
         "main.ts",
+        "custom.ts",
         "README.md",
-        "logger.cpp"
+        "logger.cpp",
+        "shims.d.ts",
+        "enums.d.ts"
     ],
     "testFiles": [
         "test.ts"
