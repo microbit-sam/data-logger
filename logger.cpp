@@ -1,5 +1,8 @@
 #include "pxt.h"
 
+#include "MicroBitFileSystem.h"
+#include "MicroBitConfig.h"
+
 using namespace pxt;
 
 namespace logger {
