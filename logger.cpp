@@ -6,7 +6,7 @@
 using namespace pxt;
 
 namespace logger {
-    MicroBitFileSystem fs;
+    MicroBitFileSystem *fs;
 
     #define MBFS_START ((FLASH_PROGRAM_END / MICROBIT_CODEPAGESIZE) * MICROBIT_CODEPAGESIZE) + MICROBIT_CODEPAGESIZE
     #define MBFS_LEN   MICROBIT_DEFAULT_SCRATCH_PAGE - (MBFS_START / MICROBIT_CODEPAGESIZE)
