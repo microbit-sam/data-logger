@@ -44,6 +44,6 @@ namespace logger {
     
     //% create file
     void create_file() {
-        int fd = fs->open("test.txt", MB_WRITE|MB_CREAT);V
+        int fd = fs->open("test.txt", MB_WRITE|MB_CREAT);
     }
 }
