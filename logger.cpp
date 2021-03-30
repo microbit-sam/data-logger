@@ -19,7 +19,7 @@ using namespace pxt;
 namespace logger {
     MicroBitFileSystem *fs;
 
-    //%
+    //% blockId=test_filesystem block="test file write" blockGap=8
     int test() {
         // Open file
         int fd = fs->open("test.txt", MB_WRITE);
