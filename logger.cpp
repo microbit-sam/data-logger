@@ -18,12 +18,12 @@ namespace logger {
 
         // Write file
         if(fs.write(fd,(uint8_t *)"hello!", 7) != 7) {
-            return MICROBIT_ERROR;
+            return MICROBIT_NO_RESOURCES;
         }
 
         // Close file
         if(!fs.close(fd)) {
-            return MICROBIT_ERROR;
+            return MICROBIT_NO_RESOURCES;
         }
 
         return MICROBIT_OK;
