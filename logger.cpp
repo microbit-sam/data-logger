@@ -17,7 +17,7 @@ namespace logger {
         int fd = fs.open("test.txt", MB_WRITE);
 
         // Write file
-        if(fs.write(fd, "hello!", 7) != 7) {
+        if(fs.write(fd,(uint8_t *)"hello!", 7) != 7) {
             return MICROBIT_ERROR;
         }
 
