@@ -62,7 +62,7 @@ namespace logger {
     }
 
 
-    //% blockId=log_key_value block="log data %key1 to %value1 ||, %key2 to %value2 |, %key3 to %value3 |, %key4 to %value4 |, %key5 to %value5"
+    //% blockId=log_key_value block="log data %key1 = %value1 ||, %key2 = %value2 |, %key3 = %value3 |, %key4 = %value4 |, %key5 = %value5"
     //% expandableArgumentMode="enabled"
     //% inlineInputMode=inline
     //% key1.shadowOptions.toString=true key2.shadowOptions.toString=true key3.shadowOptions.toString=true key4.shadowOptions.toString=true key5.shadowOptions.toString=true
