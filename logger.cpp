@@ -1,6 +1,6 @@
 #include "pxt.h"
 
-#include "MicroBitFileSystem.h"
+#include "CodalFS.h"
 #include "MicroBitConfig.h"
 
 #define MICROBIT_LOGGER 0x73
@@ -9,7 +9,7 @@
 using namespace pxt;
 
 namespace logger {
-    MicroBitFileSystem *fs = NULL;
+    CodalFS *fs = NULL;
 
     //% default log
     void log(String str) {
@@ -17,10 +17,10 @@ namespace logger {
         ManagedString s = MSTR(str);
 
         if(fs == NULL) {
-            fs = new MicroBitFileSystem(0, 0);
+            fs = new CodalFS(uBit.flash, 128);
         }
 
-        int fd = fs->open("log.csv", MB_APPEND|MB_WRITE|MB_CREAT);
+        int fd = fs->open("log.csv", FS_APPEND|FS_WRITE|FS_CREAT);
         if(fd != MICROBIT_OK) {
             uBit.serial.printf("result %d", fd);
         }
@@ -34,26 +34,11 @@ namespace logger {
         fs->close(fd);
     }
 
-    //%    
-    void function_every(int period, int timeMeasure, Action handler) {
-    
-        switch(timeMeasure) {
-                case 0:
-                        period = period * 1000;
-                        break;
-                case 1:
-                        period = period * 1000 * 1000;
-                        break;
-                case 2:
-                        period = period * 1000 * 1000 * 60;
-                        break;
-                case 3:
-                        period = period * 1000 * 1000 * 60 * 60;
-                        break;
-        }
 
+    //%    
+    void function_every(int period, int time, Action handler) {
 #ifdef MICROBIT_DEFAULT_SCRATCH_PAGE // Very basic check for V2
-        system_timer_event_every_us(period , MICROBIT_LOGGER, LOG);
+        system_timer_event_every_us(period * 1000, MICROBIT_LOGGER, LOG);
 #endif
         registerWithDal(MICROBIT_LOGGER, LOG, handler);
     }
@@ -63,7 +48,7 @@ namespace logger {
     //%
     void test() {
         // Open file
-        int fd = fs->open("test.txt", MB_WRITE);
+        int fd = fs->open("test.txt", FS_WRITE);
 
         // Write file
         if(fs->write(fd,(uint8_t *)"hello!", 7) != 7) {
@@ -78,11 +63,6 @@ namespace logger {
         return;
     }
 
-    //%
-    void init() {
-        fs = new MicroBitFileSystem(0, 0);
-    }
-    
     //% delete_file
     void delete_file() {
         int fd = fs->remove("log.csv");
@@ -90,13 +70,13 @@ namespace logger {
 
     //% create file
     void create_file() {
-        int fd = fs->open("test.txt", MB_WRITE|MB_CREAT);
+        int fd = fs->open("test.txt", FS_WRITE|FS_CREAT);
     }
 
     //% dump log
     void dump_log() {
         // Open file
-        int fd = fs->open("log.csv", MB_READ);
+        int fd = fs->open("log.csv", FS_READ);
 
         uBit.serial.send("Start log dump \r\n");
         
@@ -124,7 +104,7 @@ namespace logger {
     void read_file() {
 
         // Open file
-        int fd = fs->open("test.txt", MB_READ);
+        int fd = fs->open("test.txt", FS_READ);
 
         uint8_t *buffer;
         if(fs->read(fd, buffer, 100) != 0) {
